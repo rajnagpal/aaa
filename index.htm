@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+
+    <link rel="shortcut icon" href="assets/favicon-BTS4Yy5-.png" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            /*overflow: hidden;*/
+            background: #ffffff;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+    <script src="assets/index-BMd1-Tws.js" type="module"></script>
+    <link rel="modulepreload" href="assets/main-DF1PKnKa.js">
+    <link rel="stylesheet" href="assets/main-CohQgTdI.css">
+    <link rel="stylesheet" href="assets/index-CU9erIca.css">
+</head>
+
+<body>
+    <div class="wrapper bg__wrap">
+        <canvas id="background"></canvas>
+        <div class="content _container">
+            <div class="header__wrapper">
+                <div class="header">
+                    <div class="header__top">
+                        <img src="assets/logo-BkZS7S04.svg" alt="" class="white">
+                        <img src="assets/logob-DiocZDUL.png" alt="" class="black">
+
+                    </div>
+                    <div class="header__left">
+                        <div class="networks">
+                            <a href="https://t.me/core_ai_portal" class="_scale_hover">
+                                <img src="assets/tg-s6cw_KJ0.svg" alt="">
+                            </a>
+                            <a href="https://x.com/CoreAI_Agents" class="_scale_hover">
+                                <img src="assets/x-Da9kAkS6.svg" alt="">
+                            </a>
+                            <a href="https://dexscreener.com/solana/8klydgcbu451bo7utsugchjwu2hma3amndqg9aivenqf" class="_scale_hover">
+                                <img src="assets/screen-CCBetIRy.svg" alt="">
+                            </a>
+                            <a href="#" class="_scale_hover">
+                                <img src="assets/tools-COPySYnT.svg" alt="">
+                            </a>
+                            <a href="https://core-ai.gitbook.io/core-ai" class="_scale_hover">
+                                <img src="assets/docs-v9hcksJd.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="networks networksb">
+                            <a href="https://t.me/core_ai_portal" class="_scale_hover">
+                                <img src="assets/tgb-xdCFiBWG.svg" alt="">
+                            </a>
+                            <a href="https://x.com/CoreAI_Agents" class="_scale_hover">
+                                <img src="assets/xb-QgiHO33z.svg" alt="">
+                            </a>
+                            <a href="https://dexscreener.com/solana/8klydgcbu451bo7utsugchjwu2hma3amndqg9aivenqf" class="_scale_hover">
+                                <img src="assets/screenb-gAu8PIbO.svg" alt="">
+                            </a>
+                            <a href="#" class="_scale_hover">
+                                <img src="assets/toolsb-Ba22VIrv.svg" alt="">
+                            </a>
+                            <a href="https://core-ai.gitbook.io/core-ai" class="_scale_hover">
+                                <img src="assets/docsb-fsrF_icg.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <button type="button" class="page__theme"></button>
+                <button type="button" class="page__reset"></button>
+            </div>
+
+            <section class="info">
+                <img src="assets/btn-bG-xuave.png" alt="" class="btn _scale_hover">
+                <h1 class="info__title">
+                    AI agent on Solana offering real-time project analytics, trading capabilities via Jupiter and more
+                </h1>
+                <p class="info__text">Elevate your Solana experience with AI-powered insights and delegated actions</p>
+                <div data-copy="" class="ca">ca:4jqCtmVeADKo3RdecTghtzYBcB6uizV4ohrDfY41pump</div>
+            </section>
+            <section class="chat" x-data="AssistantChat()">
+                <div class="chat-head">
+                    <img src="assets/logo-BkZS7S04.svg" alt="" class="chat-app__logo white">
+                    <img src="assets/logob-DiocZDUL.png" alt="" class="chat-app__logo black">
+                </div>
+                <div class="chat__content">
+                    <div class="private">
+
+                        <span>Private key |</span>
+                        <input x-model="solanaKey" placeholder="Type your private key" type="text">
+                    </div>
+                    <button @click="applyDefaultKey" class="test _scale_hover">Use test private key</button>
+                    <h2 class="chat__title" style="height: 63px;" :class="{ '_hide': messages.length > 0 }">
+                        How can I help you today?</h2>
+                    <div class="chat-app">
+                        <div class="chat-app__messages" x-ref="chatContainer">
+                            <ul class="chat-app__abilities">
+                                <li>/Checking wallet balances (both SOL and SPL tokens)</li>
+                                <li>/Transferring tokens and SOL</li>
+                                <li>/Deploying tokens and NFT collections</li>
+                                <li>/Minting NFTs</li>
+                                <li>/Swapping tokens Staking and lending assets</li>
+                                <li>/Creating and managing liquidity pools</li>
+                                <li>/Fetching token prices and market data</li>
+                                <li>/Registering and resolving .sol domain names</li>
+                                <li>/Launching PumpFun tokens</li>
+                            </ul>
+                            <template x-for="(message, index) in parsedMessages" :key="index">
+                                <div :class="message.role === 'user' ? 'chat-app__message chat-app__message--user' : 'chat-app__message chat-app__message--assistant'" x-html="message.content">
+                                </div>
+                            </template>
+                        </div>
+                        <div class="chat-app__controls" :class="{
+                            'loading': loading,
+                        }">
+                            <input x-model="newMessage" @keydown.enter="handleEnterKey" placeholder="Type your message" type="text">
+                            <button @click="sendMessage" class="chat-app__send _scale_hover">Send</button>
+                        </div>
+                        <div class="chat-app__typing" x-show="loading">
+                            <span>Assistant is typing...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blocks">
+                <h2 class="blocks__title">Tailored for Solana</h2>
+                <p class="blocks__text">Seamless integration with the world’s leading AI-models</p>
+                <div class="cards">
+                    <div class="cards__first">
+                        <div class="card big ">
+                            <img src="assets/01-S4D9d7Lc.png" alt="" class="card__icon">
+                            <h3 class="card__title">Cutting-Edge AI Intelligence</h3>
+                            <p class="card__text">
+                                Harness the power of the world's most advanced AI models, including Claude 3.5-Sonnet
+                                and
+                                GPT-4o, to intelligently analyze Solana transactions in real time and interact with the
+                                blockchain.
+                            </p>
+                        </div>
+                        <div class="card small  ">
+                            <img src="assets/02-BsalnEMK.png" alt="" class="card__icon">
+                            <h3 class="card__title">Seamless Execution</h3>
+                            <p class="card__text">
+                                Experience ultra-efficient, frictionless transactions powered by our deep Solana
+                                integration.
+                                Enjoy smooth, rapid execution without the need for compromise.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card one ">
+                        <div class="one__content">
+                            <img src="assets/03-T1Fitg0v.png" alt="" class="card__icon">
+                            <h3 class="card__title">Comprehensive Ecosystem Integration</h3>
+                            <p class="card__text">
+                                Effortlessly connect with the full spectrum of Solana's protocols and services. Our
+                                platform
+                                is designed for seamless AI-powered collaboration, ensuring full synergy with the
+                                ecosystem.
+                            </p>
+                        </div>
+                        <img src="assets/card-content-C_u0L2J2.png" alt="" class="icon white">
+                        <img src="assets/iconb-dVFGOdOF.png" alt="" class="icon black">
+                    </div>
+                    <div class="cards__second">
+                        <div class="card big ">
+                            <img src="assets/05-CGF5Snxf.png" alt="" class="card__icon">
+                            <h3 class="card__title">AI-Driven Automations & Agents</h3>
+                            <p class="card__text">
+                                Revolutionize your workflows with powerful AI agents and custom automations designed to
+                                handle complex tasks. *Coming soon* to streamline your operations even further.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="header__wrapper">
+                <div class="header footer">
+                    <div class="header__top">
+                        <img src="assets/logo-BkZS7S04.svg" alt="" class="white">
+                        <img src="assets/logob-DiocZDUL.png" alt="" class="black">
+
+                    </div>
+                    <p class="footer__text">All rights reserved © 2025 CORE AI</p>
+                    <div class="header__left">
+                        <div class="networks">
+                            <a href="https://t.me/core_ai_portal" class="_scale_hover">
+                                <img src="assets/tg-s6cw_KJ0.svg" alt="">
+                            </a>
+                            <a href="https://x.com/CoreAI_Agents" class="_scale_hover">
+                                <img src="assets/x-Da9kAkS6.svg" alt="">
+                            </a>
+                            <a href="https://dexscreener.com/solana/8klydgcbu451bo7utsugchjwu2hma3amndqg9aivenqf
+
+" class="_scale_hover">
+                                <img src="assets/screen-CCBetIRy.svg" alt="">
+                            </a>
+                            <a href="#" class="_scale_hover">
+                                <img src="assets/tools-COPySYnT.svg" alt="">
+                            </a>
+                            <a href="#" class="_scale_hover">
+                                <img src="assets/docs-v9hcksJd.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="networks networksb">
+                            <a href="https://t.me/core_ai_portal" class="_scale_hover">
+                                <img src="assets/tgb-xdCFiBWG.svg" alt="">
+                            </a>
+                            <a href="https://x.com/CoreAI_Agents" class="_scale_hover">
+                                <img src="assets/xb-QgiHO33z.svg" alt="">
+                            </a>
+                            <a href="https://dexscreener.com/solana/8klydgcbu451bo7utsugchjwu2hma3amndqg9aivenqf
+
+" class="_scale_hover">
+                                <img src="assets/screenb-gAu8PIbO.svg" alt="">
+                            </a>
+                            <a href="#" class="_scale_hover">
+                                <img src="assets/toolsb-Ba22VIrv.svg" alt="">
+                            </a>
+                            <a href="https://core-ai.gitbook.io/core-ai" class="_scale_hover">
+                                <img src="assets/docsb-fsrF_icg.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <button type="button" class="page__theme"></button>
+                <button type="button" class="page__reset"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="copied_modal">copied to clipboard</div>
+    <!--<script src="./animation.js"></script>-->
+
+    <script>
+        const canvas = document.getElementById("background");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let particleCount;
+        let maxDistance;
+        let mouseRadius;
+        let lineWidth;
+
+        // Переменные для цветов
+        let particleColor = "rgba(0, 0, 0, 0.2)"; // Цвет частиц
+        let lineColor = "rgba(255, 255, 255, 0.1)"; // Цвет линий
+
+        // Функция для настройки параметров в зависимости от ширины экрана
+        function setResponsiveParams()
+        {
+            const screenWidth = window.innerWidth;
+
+            if (screenWidth < 600)
+            {
+                // Телефоны
+                particleCount = 30;
+                maxDistance = 150;
+                mouseRadius = 100;
+                lineWidth = 1;
+            } else if (screenWidth >= 600 && screenWidth < 768)
+            {
+                // sm
+                particleCount = 40;
+                maxDistance = 120;
+                mouseRadius = 100;
+                lineWidth = 0.8;
+            } else if (screenWidth >= 768 && screenWidth < 992)
+            {
+                // md
+                particleCount = 60;
+                maxDistance = 150;
+                mouseRadius = 120;
+                lineWidth = 0.7;
+            } else if (screenWidth >= 992 && screenWidth < 1400)
+            {
+                // lg
+                particleCount = 60; // Значительно уменьшено количество частиц
+                maxDistance = 200;
+                mouseRadius = 150;
+                lineWidth = 0.5;
+            } else
+            {
+                // xl (1400px и больше)
+                particleCount = 100; // Немного меньше частиц
+                maxDistance = 250;
+                mouseRadius = 180;
+                lineWidth = 0.5;
+            }
+
+            // Пересоздаем частицы
+            createParticles();
+        }
+
+        // Создание частиц
+        function createParticles()
+        {
+            particles = [];
+            for (let i = 0; i < particleCount; i++)
+            {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1 + 0.5, // Размер частиц
+                    speedX: Math.random() * 0.3 - 0.15,
+                    speedY: Math.random() * 0.3 - 0.15,
+                });
+            }
+        }
+
+        // Позиция мыши
+        const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+        const movementOffset = { x: 0, y: 0 };
+
+        window.addEventListener("mousemove", (event) =>
+        {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            movementOffset.x = (event.x - centerX) * 0.02;
+            movementOffset.y = (event.y - centerY) * 0.02;
+
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Функция для обновления цветов в зависимости от темы
+        function updateThemeColors()
+        {
+            const html = document.documentElement;
+
+            if (html.classList.contains("light"))
+            {
+                // Светлая тема
+                particleColor = "rgba(0, 0, 0, 0.2)"; // Темные частицы
+                lineColor = "rgba(0, 0, 0, 0.1)"; // Темные линии
+            } else if (html.classList.contains("dark"))
+            {
+                // Темная тема
+                particleColor = "rgba(255, 255, 255, 0.2)"; // Светлые частицы
+                lineColor = "rgba(255, 255, 255, 0.1)"; // Светлые линии
+            }
+        }
+
+        // Обновляем цвета при смене темы
+        const observer = new MutationObserver(() =>
+        {
+            updateThemeColors();
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+        // Рисование частиц
+        function drawParticles()
+        {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle) =>
+            {
+                const dx = particle.x - mouse.x;
+                const dy = particle.y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                const darkness = distance < mouseRadius ? 1 - distance / mouseRadius : 0.2;
+                const color = particleColor.replace("0.2", darkness.toFixed(2)); // Меняем прозрачность
+
+                ctx.beginPath();
+                ctx.arc(particle.x + movementOffset.x, particle.y + movementOffset.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.closePath();
+            });
+        }
+
+        // Рисование линий
+        function drawLines()
+        {
+            for (let i = 0; i < particles.length; i++)
+            {
+                for (let j = i + 1; j < particles.length; j++)
+                {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance)
+                    {
+                        const midX = (particles[i].x + particles[j].x) / 2;
+                        const midY = (particles[i].y + particles[j].y) / 2;
+                        const mouseDx = midX - mouse.x;
+                        const mouseDy = midY - mouse.y;
+                        const mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
+
+                        const lineDarkness = mouseDistance < mouseRadius ? 1 - mouseDistance / mouseRadius : 0.1;
+                        const color = lineColor.replace("0.1", lineDarkness.toFixed(2)); // Меняем прозрачность
+
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x + movementOffset.x, particles[i].y + movementOffset.y);
+                        ctx.lineTo(particles[j].x + movementOffset.x, particles[j].y + movementOffset.y);
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = lineWidth;
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+                }
+            }
+        }
+
+        // Обновление позиций частиц
+        function updateParticles()
+        {
+            particles.forEach((particle) =>
+            {
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+
+                if (particle.x <= 0 || particle.x >= canvas.width)
+                {
+                    particle.speedX *= -1;
+                }
+                if (particle.y <= 0 || particle.y >= canvas.height)
+                {
+                    particle.speedY *= -1;
+                }
+            });
+        }
+
+        // Анимация
+        function animate()
+        {
+            drawParticles();
+            drawLines();
+            updateParticles();
+            requestAnimationFrame(animate);
+        }
+
+        // Изменение размера холста и параметров при изменении размера окна
+        window.addEventListener("resize", () =>
+        {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            setResponsiveParams();
+        });
+
+        // Инициализация
+        setResponsiveParams();
+        updateThemeColors();
+        animate();
+    </script>
+    <script>
+
+
+        window.addEventListener("load", windowLoad);
+
+        function windowLoad()
+        {
+            // HTML
+            const htmlBlock = document.documentElement;
+
+            // Получаем сохраненную тему
+            const saveUserTheme = localStorage.getItem("user-theme");
+
+            // Работа с системными настройками
+            let userTheme;
+            if (window.matchMedia)
+            {
+                userTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light";
+            }
+            window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", (e) =>
+                {
+                    !saveUserTheme ? changeTheme() : null;
+                });
+
+            // Получаем все кнопки смены темы и сброса
+            const themeButtons = document.querySelectorAll(".page__theme");
+            const resetButtons = document.querySelectorAll(".page__reset");
+
+            // Добавляем обработчики событий для всех кнопок смены темы
+            if (themeButtons.length > 0)
+            {
+                themeButtons.forEach((themeButton) =>
+                {
+                    themeButton.addEventListener("click", function (e)
+                    {
+                        resetButtons.forEach((resetButton) =>
+                            resetButton.classList.add("active")
+                        );
+                        changeTheme(true);
+                    });
+                });
+            }
+
+            // Добавляем обработчики событий для всех кнопок сброса
+            if (resetButtons.length > 0)
+            {
+                resetButtons.forEach((resetButton) =>
+                {
+                    resetButton.addEventListener("click", function (e)
+                    {
+                        resetButton.classList.remove("active");
+                        localStorage.setItem("user-theme", "");
+                    });
+                });
+            }
+
+            // Функция добавления класса темы
+            function setThemeClass()
+            {
+                if (saveUserTheme)
+                {
+                    htmlBlock.classList.add(saveUserTheme);
+                    resetButtons.forEach((resetButton) =>
+                        resetButton.classList.add("active")
+                    );
+                } else
+                {
+                    htmlBlock.classList.add(userTheme);
+                }
+            }
+            // Добавляем класс темы
+            setThemeClass();
+
+            // Функция смены темы
+            function changeTheme(saveTheme = false)
+            {
+                let currentTheme = htmlBlock.classList.contains("light")
+                    ? "light"
+                    : "dark";
+                let newTheme;
+
+                if (currentTheme === "light")
+                {
+                    newTheme = "dark";
+                } else if (currentTheme === "dark")
+                {
+                    newTheme = "light";
+                }
+                htmlBlock.classList.remove(currentTheme);
+                htmlBlock.classList.add(newTheme);
+                saveTheme ? localStorage.setItem("user-theme", newTheme) : null;
+            }
+        }
+
+    </script>
+
+    <script src="ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+    <script src="copy.js"></script>
+</body>
+
+</html>
